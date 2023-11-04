@@ -38,17 +38,44 @@ document.addEventListener('keydown', function (e) {
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
-btnScrollTo.addEventListener("click", (btn) => {
-    const s1coords = section1.getBoundingClientRect();
+// For the button
+btnScrollTo.addEventListener("click", () => {
+    /* 
+    const section-coords = section1.getBoundingClientRect();
 
-    // Smooth scrolling
-    /* window.scrollTo({
-        left: s1coords.left + window.scrollX,
-        top: s1coords.top + window.scrollY,
+    window.scrollTo({
+        left: section-coords.left + window.scrollX,
+        top: section-coords.top + window.scrollY,
         behavior: "smooth",
     }) */
 
     section1.scrollIntoView({
         behavior: "smooth",
     })
+})
+
+// For the navigation
+
+/* If we have 3, 4 or 5 elements, we attach event click on each elements
+document.querySelectorAll('.nav__link').forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const id = btn.getAttribute('href');
+        document.querySelector(id).scrollIntoView({
+            behavior: "smooth",
+        })
+    })
+})
+ */
+
+// If we have 100, 1000 or 10000 elements for exemple, we attach event click on the entire container
+document.querySelector('.nav__links').addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (event.target.classList.contains('nav__link')) {
+        const id = event.target.getAttribute('href');
+        document.querySelector(id).scrollIntoView({
+            behavior: "smooth",
+        })
+    }
 })
