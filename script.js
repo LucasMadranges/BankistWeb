@@ -1,12 +1,24 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
+// Element
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnOpenModal = document.querySelectorAll('.btn--show-modal');
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+const navBar = document.querySelector('.nav');
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (event) {
     event.preventDefault(); // Delete the # movement
@@ -34,9 +46,6 @@ document.addEventListener('keydown', function (e) {
 
 ///////////////////////////////////////
 // Smooth scrolling
-
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 // For the button
 btnScrollTo.addEventListener("click", () => {
@@ -83,10 +92,6 @@ document.querySelector('.nav__links').addEventListener("click", (event) => {
 ///////////////////////////////////////
 // Tabbed component
 
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
-
 tabsContainer.addEventListener("click", (event) => {
     const clicked = event.target.closest('.operations__tab');
 
@@ -101,3 +106,23 @@ tabsContainer.addEventListener("click", (event) => {
     tabsContent.forEach((element) => element.classList.remove('operations__content--active'))
     document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 })
+
+///////////////////////////////////////
+// Menu fade animation
+
+function handleHover(event) {
+    if (event.target.classList.contains('nav__link')) {
+        const link = event.target;
+        const sibling = link.closest('.nav').querySelectorAll('.nav__link');
+        const logo = link.closest('.nav').querySelector('img');
+
+        sibling.forEach(element => {
+            if (element !== link) element.style.opacity = this;
+        })
+        logo.style.opacity = this;
+    }
+}
+
+navBar.addEventListener("mouseover", handleHover.bind('0.5'));
+
+navBar.addEventListener("mouseout", handleHover.bind('1'));
