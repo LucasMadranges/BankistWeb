@@ -6,7 +6,7 @@
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
-const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnOpenModal = document.querySelectorAll('.btn--show-modal');
 
 const openModal = function (event) {
   event.preventDefault(); // Delete the # movement
@@ -19,7 +19,7 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-btnsOpenModal.forEach((btn) => {
+btnOpenModal.forEach((btn) => {
   btn.addEventListener("click", openModal);
 })
 
