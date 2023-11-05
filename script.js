@@ -203,6 +203,7 @@ imgTargets.forEach(img => imgObs.observe(img))
 // Testimonials slider
 
 const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
 
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
@@ -244,6 +245,7 @@ btnLeft.addEventListener("click", () => {
 // Images slider
 
 const slidesImg = document.querySelectorAll('.slide-img');
+const sliderImg = document.querySelector('.slider-img');
 
 const btnLeftImg = document.querySelector('.slider__btn--left--img');
 const btnRightImg = document.querySelector('.slider__btn--right--img');
@@ -278,5 +280,5 @@ btnLeftImg.addEventListener("click", () => {
         currSlideImg--;
     }
 
-    goToSlide(currSlideImg);
+    goToSlideImg(currSlideImg);
 })
