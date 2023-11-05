@@ -21,6 +21,14 @@ const header = document.querySelector('.header');
 
 const imgTargets = document.querySelectorAll('img[data-src]');
 
+const slidesImg = document.querySelectorAll('.slide-img');
+const sliderImg = document.querySelector('.slider-img');
+
+const btnLeftImg = document.querySelector('.slider__btn--left--img');
+const btnRightImg = document.querySelector('.slider__btn--right--img');
+
+const dotsContainerImg = document.querySelector('.dots-img');
+
 ///////////////////////////////////////
 // Modal window
 
@@ -201,7 +209,7 @@ imgTargets.forEach(img => imgObs.observe(img))
 
 ///////////////////////////////////////
 // Testimonials slider
-
+/*
 const slides = document.querySelectorAll('.slide');
 const slider = document.querySelector('.slider');
 
@@ -240,18 +248,28 @@ btnLeft.addEventListener("click", () => {
 
     goToSlide(currSlide);
 })
+ */
 
 ///////////////////////////////////////
 // Images slider
 
-const slidesImg = document.querySelectorAll('.slide-img');
-const sliderImg = document.querySelector('.slider-img');
-
-const btnLeftImg = document.querySelector('.slider__btn--left--img');
-const btnRightImg = document.querySelector('.slider__btn--right--img');
-
 let currSlideImg = 0;
 const maxSlideImg = slidesImg.length;
+
+function createDots() {
+    slidesImg.forEach((_, index) => {
+        dotsContainerImg.insertAdjacentHTML('beforeend',
+            `<button class="dots__dot-img" data-slide="${index}"></button>`);
+    })
+}
+
+function activateDotImg(slide) {
+    document.querySelectorAll('.dots__dot-img').forEach((dot) => {
+        dot.classList.remove('dots__dot-img--active')
+    })
+
+    document.querySelector(`.dots__dot-img[data-slide="${slide}"]`).classList.add('dots__dot-img--active')
+}
 
 function goToSlideImg(s) {
     slidesImg.forEach((slide, index) => {
@@ -259,26 +277,52 @@ function goToSlideImg(s) {
     })
 }
 
-goToSlideImg(0);
+initHandlers()
 
-// Next slide
-btnRightImg.addEventListener("click", () => {
-    if (currSlideImg === maxSlideImg - 1) {
+function nextSlideImg() {
+    if (currSlideImg >= maxSlideImg - 1) {
         currSlideImg = 0;
     } else {
         currSlideImg++;
     }
 
     goToSlideImg(currSlideImg);
-})
+    activateDotImg(currSlideImg);
+}
 
-// Left slide
-btnLeftImg.addEventListener("click", () => {
-    if (currSlideImg === 0) {
+function prevSlideImg() {
+    if (currSlideImg <= 0) {
         currSlideImg = maxSlideImg - 1;
     } else {
         currSlideImg--;
     }
 
     goToSlideImg(currSlideImg);
+    activateDotImg(currSlideImg);
+}
+
+// Next slide
+btnRightImg.addEventListener("click", nextSlideImg)
+
+// Left slide
+btnLeftImg.addEventListener("click", prevSlideImg)
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === 'ArrowLeft') prevSlideImg();
+    if (event.key === 'ArrowRight') nextSlideImg();
 })
+
+dotsContainerImg.addEventListener("click", (event) => {
+    if (event.target.classList.contains('dots__dot-img')) {
+        const slideDataImg = event.target.dataset.slide;
+        currSlideImg = slideDataImg;
+        goToSlideImg(currSlideImg);
+        activateDotImg(currSlideImg);
+    }
+})
+
+function initHandlers() {
+    goToSlideImg(0);
+    createDots();
+    activateDotImg(0);
+}
