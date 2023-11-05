@@ -19,6 +19,8 @@ const navBar = document.querySelector('.nav');
 
 const header = document.querySelector('.header');
 
+const imgTargets = document.querySelectorAll('img[data-src]');
+
 ///////////////////////////////////////
 // Modal window
 
@@ -176,8 +178,6 @@ allSections.forEach((section) => {
 ///////////////////////////////////////
 // Lazy loading images
 
-const imgTargets = document.querySelectorAll('img[data-src]');
-
 const imgObs = new IntersectionObserver((entries, observer) => {
     const [entry] = entries;
 
@@ -198,3 +198,85 @@ const imgObs = new IntersectionObserver((entries, observer) => {
 })
 
 imgTargets.forEach(img => imgObs.observe(img))
+
+///////////////////////////////////////
+// Testimonials slider
+
+const slides = document.querySelectorAll('.slide');
+
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+let currSlide = 0;
+const maxSlide = slides.length;
+
+function goToSlide(s) {
+    slides.forEach((slide, index) => {
+        slide.style.transform = `translateX(${100 * (index - s)}%)`;
+    })
+}
+
+goToSlide(0);
+
+// Next slide
+btnRight.addEventListener("click", () => {
+    if (currSlide === maxSlide - 1) {
+        currSlide = 0;
+    } else {
+        currSlide++;
+    }
+
+    goToSlide(currSlide);
+})
+
+// Left slide
+btnLeft.addEventListener("click", () => {
+    if (currSlide === 0) {
+        currSlide = maxSlide - 1;
+    } else {
+        currSlide--;
+    }
+
+    goToSlide(currSlide);
+})
+
+///////////////////////////////////////
+// Images slider
+
+const slidesImg = document.querySelectorAll('.slide-img');
+
+const btnLeftImg = document.querySelector('.slider__btn--left--img');
+const btnRightImg = document.querySelector('.slider__btn--right--img');
+
+let currSlideImg = 0;
+const maxSlideImg = slidesImg.length;
+
+function goToSlideImg(s) {
+    slidesImg.forEach((slide, index) => {
+        slide.style.transform = `translateX(${100 * (index - s)}%)`;
+    })
+}
+
+goToSlideImg(0);
+
+// Next slide
+btnRightImg.addEventListener("click", () => {
+    if (currSlideImg === maxSlideImg - 1) {
+        currSlideImg = 0;
+    } else {
+        currSlideImg++;
+    }
+
+    goToSlideImg(currSlideImg);
+})
+
+// Left slide
+btnLeftImg.addEventListener("click", () => {
+    if (currSlideImg === 0) {
+        currSlideImg = maxSlideImg - 1;
+    } else {
+        currSlideImg--;
+    }
+
+    goToSlide(currSlideImg);
+})
