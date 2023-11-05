@@ -326,3 +326,12 @@ function initHandlers() {
     createDots();
     activateDotImg(0);
 }
+
+///////////////////////////////////////
+// Window event
+/*
+window.addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+})
+ */
