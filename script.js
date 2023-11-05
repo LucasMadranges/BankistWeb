@@ -140,15 +140,35 @@ window.addEventListener('scroll', () => {
 */
 
 // Version ++
-function stickyNav(entries) {
+const headerObs = new IntersectionObserver((entries) => {
     const [entry] = entries;
     !entry.isIntersecting ? navBar.classList.add('sticky') : navBar.classList.remove('sticky');
-}
-
-const headerObs = new IntersectionObserver(stickyNav, {
+}, {
     root: null,
     threshold: 0,
     rootMargin: `-${navBar.getBoundingClientRect().height}px` // '-90px' because height navbar is 90
 });
 
 headerObs.observe(header);
+
+///////////////////////////////////////
+// Smooth animation for revealing section
+
+const allSections = document.querySelectorAll('.section');
+
+const sectionObs = new IntersectionObserver((entries, observer) => {
+    const [entry] = entries;
+
+    if (!entry.isIntersecting) return
+
+    entry.target.classList.remove('section--hidden');
+    observer.unobserve(entry.target);
+}, {
+    root: null,
+    threshold: 0.15,
+})
+
+allSections.forEach((section) => {
+    sectionObs.observe(section)
+    section.classList.add('section--hidden');
+})
