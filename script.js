@@ -22,7 +22,6 @@ const header = document.querySelector('.header');
 const imgTargets = document.querySelectorAll('img[data-src]');
 
 const slidesImg = document.querySelectorAll('.slide-img');
-const sliderImg = document.querySelector('.slider-img');
 
 const btnLeftImg = document.querySelector('.slider__btn--left--img');
 const btnRightImg = document.querySelector('.slider__btn--right--img');
@@ -314,8 +313,7 @@ document.addEventListener("keydown", (event) => {
 
 dotsContainerImg.addEventListener("click", (event) => {
     if (event.target.classList.contains('dots__dot-img')) {
-        const slideDataImg = event.target.dataset.slide;
-        currSlideImg = slideDataImg;
+        currSlideImg = event.target.dataset.slide;
         goToSlideImg(currSlideImg);
         activateDotImg(currSlideImg);
     }
